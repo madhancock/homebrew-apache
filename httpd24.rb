@@ -1,7 +1,7 @@
 class Httpd24 < Formula
   homepage "https://httpd.apache.org/"
-  url "https://archive.apache.org/dist/httpd/httpd-2.4.17.tar.bz2"
-  sha256 "331e035dec81d3db95b048f036f4d7b1a97ec8daa5b377bde42d4ccf1f2eb798"
+  url "https://archive.apache.org/dist/httpd/httpd-2.4.16.tar.bz2"
+  sha256 "ac660b47aaa7887779a6430404dcb40c0b04f90ea69e7bd49a40552e9ff13743"
 
   bottle do
     sha256 "a7744efed0e6bd8dc4eb6926a0f678593b6f18587dde83dc4a902036601f7eb2" => :yosemite
