@@ -149,6 +149,6 @@ class Httpd24 < Formula
   end
 
   test do
-    system sbin/"httpd", "-v"
+    system bin/"httpd", "-v"
   end
 end
