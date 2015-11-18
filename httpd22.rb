@@ -1,4 +1,5 @@
 class Httpd22 < Formula
+  desc "HTTP server"
   homepage "https://httpd.apache.org/"
   url "https://archive.apache.org/dist/httpd/httpd-2.2.31.tar.bz2"
   sha256 "f32f9d19f535dac63b06cb55dfc023b40dcd28196b785f79f9346779e22f26ac"
@@ -22,9 +23,8 @@ class Httpd22 < Formula
   depends_on "pcre" => :optional
   depends_on "homebrew/dupes/zlib"
 
-  if build.with? "mpm-worker" and build.with? "mpm-event"
-    onoe "Cannot build with both worker and event MPMs, choose one"
-    exit 1
+  if build.with?("mpm-worker") && build.with?("mpm-event")
+    raise "Cannot build with both worker and event MPMs, choose one"
   end
 
   def install
@@ -49,12 +49,11 @@ class Httpd22 < Formula
       --enable-cgid
       --enable-suexec
       --enable-rewrite
+      --with-apr=#{Formula["apr"].opt_prefix}
+      --with-apr-util=#{Formula["apr-util"].opt_prefix}
+      --with-ssl=#{Formula["openssl"].opt_prefix}
+      --with-z=#{Formula["zlib"].opt_prefix}
     ]
-
-    args << "--with-apr=#{Formula["apr"].opt_prefix}"
-    args << "--with-apr-util=#{Formula["apr-util"].opt_prefix}"
-    args << "--with-ssl=#{Formula['openssl'].opt_prefix}"
-    args << "--with-z=#{Formula['zlib'].opt_prefix}"
 
     if build.with? "mpm-worker"
       args << "--with-mpm=worker"
@@ -65,29 +64,25 @@ class Httpd22 < Formula
     end
 
     if build.with? "privileged-ports"
-      args << "--with-port=80"
-      args << "--with-sslport=443"
+      args << "--with-port=80" << "--with-sslport=443"
     else
-      args << "--with-port=8080"
-      args << "--with-sslport=8443"
+      args << "--with-port=8080" << "--with-sslport=8443"
     end
 
     if build.with? "ldap"
-      args << "--with-ldap"
-      args << "--enable-ldap"
-      args << "--enable-authnz-ldap"
+      args << "--with-ldap" << "--enable-ldap" << "--enable-authnz-ldap"
     end
 
-    args << "--with-pcre=#{Formula['pcre'].opt_prefix}" if build.with? "pcre"
+    args << "--with-pcre=#{Formula["pcre"].opt_prefix}" if build.with? "pcre"
 
     system "./configure", *args
 
     system "make"
-    system "make install"
+    system "make", "install"
     (var/"apache2/log").mkpath
     (var/"apache2/run").mkpath
-    touch("#{var}/log/apache2/access_log") unless File.exists?("#{var}/log/apache2/access_log")
-    touch("#{var}/log/apache2/error_log") unless File.exists?("#{var}/log/apache2/error_log")
+    touch("#{var}/log/apache2/access_log") unless File.exist?("#{var}/log/apache2/access_log")
+    touch("#{var}/log/apache2/error_log") unless File.exist?("#{var}/log/apache2/error_log")
   end
 
   def plist; <<-EOS.undent
@@ -111,7 +106,7 @@ class Httpd22 < Formula
   end
 
   def httpd_layout
-    return <<-EOS.undent
+    <<-EOS.undent
       <Layout Homebrew>
           prefix:        #{prefix}
           exec_prefix:   ${prefix}
@@ -134,11 +129,7 @@ class Httpd22 < Formula
           logfiledir:    #{var}/log/apache2
           proxycachedir: ${localstatedir}/proxy
       </Layout>
-      EOS
-  end
-
-  test do
-    system sbin/"httpd", "-v"
+    EOS
   end
 
   def caveats
@@ -157,5 +148,9 @@ class Httpd22 < Formula
       If not using --with-privileged-ports, use the instructions below.
       EOS
     end
+  end
+
+  test do
+    system sbin/"httpd", "-v"
   end
 end
