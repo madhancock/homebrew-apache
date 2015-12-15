@@ -11,6 +11,7 @@ class ModFcgid < Formula
     end
   end
 
+  desc "High performance alternative to mod_cgi or mod_cgid"
   homepage "https://httpd.apache.org/mod_fcgid/"
   url "https://archive.apache.org/dist/httpd/mod_fcgid/mod_fcgid-2.3.9.tar.gz"
   sha256 "1cbad345e3376b5d7c8f9a62b471edd7fa892695b90b79502f326b4692a679cf"

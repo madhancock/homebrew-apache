@@ -11,6 +11,7 @@ class ModSecurity < Formula
     end
   end
 
+  desc "Open Source Web application firewall"
   homepage "http://www.modsecurity.org/"
   url "https://www.modsecurity.org/tarball/2.9.0/modsecurity-2.9.0.tar.gz"
   sha256 "e2bbf789966c1f80094d88d9085a81bde082b2054f8e38e0db571ca49208f434"

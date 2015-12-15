@@ -11,6 +11,7 @@ class ModBonjour < Formula
     end
   end
 
+  desc "Control websites registration with multicast DNS."
   homepage "http://www.opensource.apple.com/source/apache_mod_bonjour/apache_mod_bonjour-23/"
   url "http://www.opensource.apple.com/tarballs/apache_mod_bonjour/apache_mod_bonjour-23.tar.gz"
   version "2.3"

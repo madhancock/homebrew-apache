@@ -11,6 +11,7 @@ class ModWsgi3 < Formula
     end
   end
 
+  desc "Host Python web apps supporting the Python WSGI spec"
   homepage "https://modwsgi.readthedocs.org/en/develop/"
   url "https://github.com/GrahamDumpleton/mod_wsgi/archive/3.5.tar.gz"
   sha256 "f0674c38f0f568ece55610bcc6a775c179835c4cba23aa7f876d2a2a8520bf93"

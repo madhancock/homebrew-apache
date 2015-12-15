@@ -11,6 +11,7 @@ class ModPython < Formula
     end
   end
 
+  desc "Embed the Python interpreter within the server"
   homepage "http://modpython.org/"
   url "http://dist.modpython.org/dist/mod_python-3.5.0.tgz"
   sha256 "0ef09058ed98b41c18d899d8b710a0cce2df2b53c44d877401133b3f28bdca90"
